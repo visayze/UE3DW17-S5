@@ -3,42 +3,25 @@
 const mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
-  email: {
+  userId: {
     type: String,
-    unique : true,
-    required: true
+    //required: true,
   },
-  name: {
+  gameId:{
     type: String,
-    required: true
+    //required: true,
   },
-  firstname: {
-    type: String,
-    required: true
-  },
-  createdOn: {
-    type: Date,
-    default: Date.now
-  },
-  games:{
-    game:{
-      type: String,
-      required: false
-    }
+  score:{
+    type: Number,
+    default: null
   }
 });
 
 UserSchema.pre('save', function(next) {
-    if (!this.createdOn) {
-        this.createdOn = new Date();
-    }
     next();
 });
 
 UserSchema.pre('validate', function(next) {
-    if (this.isModified('createdOn')) {
-        this.invalidate('createdOn');
-    }
     next();
 });
 

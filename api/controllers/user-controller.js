@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../models/user-schema');
 
 exports.createUser = function(req, res) {
-  var newUser = new User(req.body);
+  var newUser = new User( {score:req.body.score,userId:req.params.userId,gameId:req.params.gameId} );
   newUser.save(function(err, user) {
     if (err)
     {
@@ -18,7 +18,7 @@ exports.createUser = function(req, res) {
 };
 
 exports.findUser = function(req, res) {
-  User.findById(req.params.userId, function(err, user) {
+  User.find({userId: req.params.userId}, function(err, user) {
     if (err)
     {
       console.error(err);
@@ -28,48 +28,21 @@ exports.findUser = function(req, res) {
   });
 };
 
-exports.findUserByEmail = function(req, res) {
-  User.findOne({email: req.params.email}, function(err, user) {
-    if (err)
-    {
-      console.error(err);
-      res.json({ message: 'Unable to find user '+req.params.email });
-    }
-    res.json(user);
-  });
-};
-
-exports.updateUser = function(req, res) {
-  User.findByIdAndUpdate(req.params.userId, req.body, {new: true}, function(err, user) {
-    if (err)
-    {
-      console.error(err);
-      res.json({ message: 'Unable to update user' });
-    }
-    res.json(user);
-  });
-};
-
-
-exports.removeUser = function(req, res) {
-  User.remove({
-    _id: req.params.userId
-  }, function(err, User) {
-    if (err)
-    {
-      console.error(err);
-      res.json({ message: 'Unable to delete user' });
-    }
-    res.json({ message: 'User successfully deleted' });
-  });
-};
-
 exports.findReview = function(req, res) {
-  User.findOne({_id:req.params.userId,games:{game:req.params.gameId} }, function(err, game) {
+  	User.findOne(
+  		{
+  			userId:req.params.userId,
+  			gameId:req.params.gameId
+  		}, 
+	  	/*{
+  			_id: false,
+  			score: true
+  		},*/
+	function(err, game) {
     if (err)
     {
       console.error(err);
-      res.json({ message: 'Unable to find game '+req.params.gameId+'for user'+req.params.userId });
+      res.json({ message: 'Unable to find game '+req.params.gameId+' for user '+req.params.userId });
     }
     res.json(game);
   });

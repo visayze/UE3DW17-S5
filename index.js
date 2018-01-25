@@ -15,4 +15,4 @@ userRoutes(app);
 
 app.listen(port);
 
-console.log('GameTracker REST API started on: ' + port);
+console.log('UE3DW17 S5 API started on: ' + port);

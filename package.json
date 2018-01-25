@@ -12,13 +12,14 @@
     "Game",
     "IGDB"
   ],
-  "author": "Matthieu Giraud",
-  "license": "MIT",
+  "author": "Alexandre Visayze",
+  "license": "LPMI",
   "devDependencies": {
     "nodemon": "^1.14.8"
   },
   "dependencies": {
     "express": "^4.16.2",
-    "mongoose": "^5.0.0-rc2"
+    "mongoose": "^5.0.0-rc2",
+    "igdb-api-node": "^3.1.1"
   }
 }

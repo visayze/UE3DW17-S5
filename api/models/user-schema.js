@@ -5,11 +5,11 @@ const mongoose = require('mongoose');
 var UserSchema = new mongoose.Schema({
   userId: {
     type: String,
-    //required: true,
+    required: true,
   },
   gameId:{
     type: String,
-    //required: true,
+    required: true,
   },
   score:{
     type: Number,
